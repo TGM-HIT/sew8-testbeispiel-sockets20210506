@@ -14,14 +14,16 @@ public class Server {
         ) {
             while (true) {
                 Socket socket = server.accept();
-                handleClient(socket);
+                new Thread(new ClientHandler(socket)).start();
+                // oder:
+                // new Thread(() -> handleClient(socket)).start();
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    private static void handleClient(Socket socket) {
+    public static void handleClient(Socket socket) {
         try (
             // socket;
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
