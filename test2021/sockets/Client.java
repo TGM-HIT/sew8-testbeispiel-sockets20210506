@@ -13,7 +13,7 @@ public class Client {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ) {
-            // TODO
+            System.out.println(reader.readLine());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
