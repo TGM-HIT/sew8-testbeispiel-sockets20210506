@@ -29,21 +29,14 @@ public class Server {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ) {
-            writer.println("hello");
-
-            String input;
-            while((input = reader.readLine()) != null) {
-                writer.println(input);
-            }
-
             TicTacToe game = new TicTacToe();
             char winner;
             // repeat until there is a winner or a draw
             while ((winner = game.getWinner()) == TicTacToe.EMPTY) {
                 System.out.println(game);
-                System.out.printf("Player '%s', your move!%n", game.getNextPlayer());
+                writer.printf("Player '%s', your move!%n", game.getNextPlayer());
 
-                String input = in.readLine();
+                String input = reader.readLine();
 
                 try {
                     // the input should look like "put x on 1 1"
