@@ -29,7 +29,12 @@ public class Server {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ) {
-            writer.println("todo");
+            writer.println("hello");
+
+            String input;
+            while((input = reader.readLine()) != null) {
+                writer.println(input);
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }

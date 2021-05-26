@@ -12,8 +12,13 @@ public class Client {
             Socket socket = new Socket("localhost", 5000);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         ) {
-            System.out.println(reader.readLine());
+            String input;
+            while((input = reader.readLine()) != null) {
+                System.out.println(input);
+                writer.println(in.readLine());
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
