@@ -38,6 +38,7 @@ public class Server {
                 writer.println("INPUT!!");
 
                 String input = reader.readLine();
+                if (input.equals("quit")) break;
 
                 try {
                     // the input should look like "put x on 1 1"
@@ -72,11 +73,16 @@ public class Server {
                 }
             }
 
-            writer.println(game);
-            if (winner == TicTacToe.DRAW) {
-                writer.println("A draw, as expected...");
+            if (winner == TicTacToe.EMPTY) {
+                // quit Command
+                writer.printf("Not cool '%s'!", game.getNextPlayer());
             } else {
-                writer.printf("Player '%s' won! '%s', shame!", winner, TicTacToe.getOtherPlayer(winner));
+                writer.println(game);
+                if (winner == TicTacToe.DRAW) {
+                    writer.println("A draw, as expected...");
+                } else {
+                    writer.printf("Player '%s' won! '%s', shame!", winner, TicTacToe.getOtherPlayer(winner));
+                }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
