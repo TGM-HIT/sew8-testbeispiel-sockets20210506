@@ -29,21 +29,14 @@ public class Server {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ) {
-            writer.println("hello");
-
-            String input;
-            while((input = reader.readLine()) != null) {
-                writer.println(input);
-            }
-
             TicTacToe game = new TicTacToe();
             char winner;
             // repeat until there is a winner or a draw
             while ((winner = game.getWinner()) == TicTacToe.EMPTY) {
-                System.out.println(game);
-                System.out.printf("Player '%s', your move!%n", game.getNextPlayer());
+                writer.println(game);
+                writer.printf("Player '%s', your move!%n", game.getNextPlayer());
 
-                String input = in.readLine();
+                String input = reader.readLine();
 
                 try {
                     // the input should look like "put x on 1 1"
@@ -71,18 +64,18 @@ public class Server {
                     try {
                         game.makeMove(player, x, y);
                     } catch (IllegalArgumentException ex) {
-                        System.out.println("Illegal move: " + ex.getMessage());
+                        writer.println("Illegal move: " + ex.getMessage());
                     }
                 } catch (IllegalArgumentException ex) {
-                    System.out.println("Invalid input");
+                    writer.println("Invalid input");
                 }
             }
 
-            System.out.println(game);
+            writer.println(game);
             if (winner == TicTacToe.DRAW) {
-                System.out.println("A draw, as expected...");
+                writer.println("A draw, as expected...");
             } else {
-                System.out.printf("Player '%s' won! '%s', shame!", winner, TicTacToe.getOtherPlayer(winner));
+                writer.printf("Player '%s' won! '%s', shame!", winner, TicTacToe.getOtherPlayer(winner));
             }
         } catch (IOException ex) {
             ex.printStackTrace();
