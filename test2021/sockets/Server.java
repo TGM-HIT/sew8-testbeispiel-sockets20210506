@@ -35,6 +35,7 @@ public class Server {
             while ((winner = game.getWinner()) == TicTacToe.EMPTY) {
                 writer.println(game);
                 writer.printf("Player '%s', your move!%n", game.getNextPlayer());
+                writer.println("INPUT!!");
 
                 String input = reader.readLine();
 

@@ -16,8 +16,11 @@ public class Client {
         ) {
             String input;
             while((input = reader.readLine()) != null) {
-                System.out.println(input);
-                writer.println(in.readLine());
+                if (input.equals("INPUT!!")) {
+                    writer.println(in.readLine());
+                } else {
+                    System.out.println(input);
+                }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
